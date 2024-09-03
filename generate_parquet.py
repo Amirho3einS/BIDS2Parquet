@@ -53,7 +53,7 @@ if not os.path.exists(parquet_dataset_dir):
 # CHBMIT has 24 subjects, but the subject '21' is actually session 2 of subject '01'
 subjects = [f'{i:02}' for i in range(1, 25)]
 
-for subject in subjects[7:8]:
+for subject in subjects:
     print(f"Processing subject {subject}...")
     # CHBMIT - Handle special case where subject '21' is actually session 2 of subject '01'
     if subject == '21':
@@ -213,9 +213,11 @@ for subject in subjects[7:8]:
     df_all.to_parquet(parquet_file,
                       index=False,
                       compression='lz4',
-                      row_group_size=32 * 1024 * 1024)
-      
-        
+                      row_group_size=512)
+    meta_data_file = os.path.join(parquet_subject_dir, f"{subject}_meta.json")
+    # Save the attributes separately
+    with open(meta_data_file, "w") as f:
+        json.dump(df_all.attrs, f)
 # %%
 # Testing Parquet file
     
