@@ -1,0 +1,3 @@
+epilepsy2bids
+pybids
+mne

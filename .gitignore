@@ -3,5 +3,5 @@
 !*.py
 !.gitignore
 !*.bash
-
+!requirements.txt
 !*/
